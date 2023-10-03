@@ -1,18 +1,20 @@
 """Module providing """
 
+def make_id(species, xml):
+    """A function to make the ideas for a given species
 
-def f(x,y):
-    return x > y
+    Args:
+        ``species`` (:obj:'str'): A string of the species
 
+        ``xml`` (:obj:'xml'): An xml to use the xmlfunction
 
-def make_id(sp,xml):
-    
-    id = get_z_a_state_from_nuclide_name(sp)
+    """
+    z_a = xml.get_z_a_state_from_nuclide_name(species)
 
-    ids = (sp,id[0],id[1])
+    ids = (species, z_a[0], z_a[1])
 
     return ids
-    
+
 
 class Layers:
     """A class for storing layer data"""
@@ -25,52 +27,78 @@ class Layers:
         """Method to create a layer object from a selection function.
 
         Args:
-            ``zone_data`` (:obj:'dict'): A dictionary of zone data  
-            
-            ``fun`` (:obj:'func'): A function to select zones with 
-                                        certain properties
+            ``zone_data`` (:obj:'dict'): A dictionary of zone data
+
+            ``fun`` (:obj:'func'): A function to select zones with
+                                  certain properties
 
             ``test_species`` (:obj:'str'): The name of the isotope
                                         your test function is meant to
                                         compare
 
         Returns:
-            :obj:`dict`: A dictionary with all zones that belong to that 
+            :obj:`dict`: A dictionary with all zones that belong to that
                             layer
 
         """
         ids = make_id(test_species)
-        
+
         for keys in zone_data:
 
-            t = zone_data[keys]['mass fractions'][ids]
+            var = zone_data[keys]['mass fractions'][ids]
 
-            bool = fun(t)
+            boolean = fun(var)
 
-            if bool == True:
-                
-                self[keys] = zone_data[keys]
+            if boolean is True:
 
-            
+                self.zones[keys] = zone_data[keys]
 
-    def update_layer(self, zone_data):  
+
+
+    def update_layer(self, zone_data):
         """Method to add zone data to an existing layer.
 
         Args:
-            ``layer`` (:obj:'dict'): A dictionary of layer data 
+            ``layer`` (:obj:'dict'): A dictionary of layer data
 
-            ``zone_data`` (:obj:'dict') A dictionary of zone data 
+            ``zone_data`` (:obj:'dict') A dictionary of zone data
 
-        Returns: On successful return the additional zone data will be added to the layer
+        Returns: On successful return the additional zone data will
+                be added to the layer
 
         """
         for keys in zone_data:
-            
-            self[keys] = zone_data[keys]  ###Posibly creates an issue with dict keys 
+
+            self.zones[keys] = zone_data[keys]  ###Posibly creates an issue with dict keys
+
+    def remove_zones_from_layer(self, fun, test_species):
+        """Method to remove zone data with certain attributes from a layer
+
+        Args:
+            ``fun`` (:obj:'func'): A function that selects properties that are unwanted
+
+            ``test_species`` (:obj:'str'): A string of the isotope that will be unwanted
+
+        Returns:
+
+            On successful return any zones with the unwanted quality will be removed
+
+        """
+        #ids = make_id(test_species)
+
+        #for keys in self:
+
+         #   t = self[keys]['mass fractions'][ids]
+
+          #  boolean = fun(t)
+
+            #if boolean == True:
+
+                #remove the zone
 
 
-    def get_layer_average(self,sp_id):
-        """Method to average a species' mass fraction over all zones in a layer 
+    def get_layer_average(self, sp_id):
+        """Method to average a species' mass fraction over all zones in a layer
 
         Args:
             ``sp`` (:obj:'str'): The species to average across the layer
@@ -79,13 +107,11 @@ class Layers:
             :obj:`float`: The average value for the species in that zone
 
         """
-        #ids = make_id[sp]
-
         vals = []
-        
-        for keys in self:
-            
-            vals.append(self[keys]['mass fractions'][sp_id])
+
+        for keys in self.zones:
+
+            vals.append(self.zones[keys]['mass fractions'][sp_id])
 
         return sum(vals)/len(vals)
 
@@ -98,32 +124,33 @@ class Layers:
 
         """
         avg_layer = {'0':{'mass fractions':{}}}
-        
-        for sp in self['position = last()']['mass fractions']:
 
-            avg_val = get_layer_average(sp)
+        for species in self.zones['position = last()']['mass fractions']:
 
-            avg_layer['0']['mass fractions'][sp] = avg_val
+            avg_val = self.get_layer_average(species)
+
+            avg_layer['0']['mass fractions'][species] = avg_val
 
         return avg_layer
 
-        
 
-def mix(layer1,layer2,f):
+
+def mix(layer1, layer2, frac):
     """Method to mix two layers together
 
     Args:
-        ``layer1`` (:obj:'layer'): 
+        ``layer1`` (:obj:'layer'): Average layer
+
+        ``layer2`` (:obj:'layer'): Average layer
+
+        ``frac`` (:obj:'float'): fraction of layer1
 
     """
 
     mixture = {'0':{'mass fractions':{}}}
 
-    for sp in layer1['first()']['mass fractions']:
-        
-        mixture['first()']['mass fractions'][sp] = f*layer1['first()']['mass fractions'][sp] + (1-f)*layer2['first()']['mass fractions'][sp]
+    for species in layer1['first()']['mass fractions']:
 
-
-   
-
-
+        mixture['position = first()']['mass fractions'][species] = \
+                          frac*layer1['position = first()']['mass fractions'][species] +\
+                            (1-frac)*layer2['position = first()']['mass fractions'][species]
