@@ -1,4 +1,4 @@
-"""Module providing """
+"""Module providing base functions"""
 
 def make_id(species, xml):
     """A function to make the ideas for a given species
