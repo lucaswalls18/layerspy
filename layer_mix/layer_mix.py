@@ -16,7 +16,7 @@ def make_id(species, xml):
     return ids
 
 
-class Layers:
+class Layer:
     """A class for storing layer data"""
 
     def __init__(self):
