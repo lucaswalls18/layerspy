@@ -1,5 +1,5 @@
 import pytest
-from your_module import make_id, Layer, mix
+from layer_mix import make_id, Layer, mix
 
 
 def mock_zone_data(mock_mass_frac):
