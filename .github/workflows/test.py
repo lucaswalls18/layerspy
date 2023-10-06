@@ -1,11 +1,11 @@
 import pytest
-from your_module import make_id, Layer, mix
+from layer_mix import make_id, Layer, mix
 
 
 def mock_zone_data(mock_mass_frac):
     # Create a mock zone_data dictionary for testing
     zone = {}
-    for i in mass_frac
+    for i in mass_frac:
         mass_frac = {('si28',14,28): mock_mass_frac[i]}
         zone[str(i)] = {'properties' : {'t9': 10}, 'mass fractions' : mass_frac}
     return zone 
@@ -13,7 +13,7 @@ def mock_zone_data(mock_mass_frac):
 
 def mock_fun(frac):
     # Define a mock selection function for testing
-    return x>.frac
+    return x>frac
 
 def test_make_id(xml):
     # Test the make_id function
@@ -30,7 +30,7 @@ def test_create_layer(mock_zone_data, mock_fun):
     mass_fracs = [0.6,0.5,0.7]
     # Call create_layer and assert the correctness of the result
     expected_result = {"0" : {'properties' : {'t9':10},
-                              'mass fractions': {('si28',14,28) : 0.6}}
+                              'mass fractions': {('si28',14,28) : 0.6}},
                        "2" : {'properties' : {'t9':10},
                               'mass fractions': {('si28',14,28) : 0.7}}
                        }
@@ -70,9 +70,9 @@ def test_get_layer_average():
     assert result == expected_result
     
 
-def test_mix(mock_layer1, mock_layer2):
+#def test_mix(mock_layer1, mock_layer2):
     # Test the mix function
     # Call the mix function and assert the correctness of the result
-    expected_result = # Define the expected result
-    result = mix(mock_layer1, mock_layer2, 0.1)
-    assert result == expected_result
+#    expected_result = # Define the expected result
+#    result = mix(mock_layer1, mock_layer2, 0.1)
+#    assert result == expected_result
