@@ -5,13 +5,13 @@ from layer_mix import make_id, Layer, mix
 def mock_zone_data(mock_mass_frac):
     # Create a mock zone_data dictionary for testing
     zone = {}
-    for i in mass_frac:
+    for i in range(len(mock_mass_frac)):
         mass_frac = {('si28',14,28): mock_mass_frac[i]}
         zone[str(i)] = {'properties' : {'t9': 10}, 'mass fractions' : mass_frac}
     return zone 
     
 
-def mock_fun(frac):
+def mock_fun(x,frac):
     # Define a mock selection function for testing
     return x>frac
 
@@ -34,7 +34,8 @@ def test_create_layer(mock_zone_data, mock_fun):
                        "2" : {'properties' : {'t9':10},
                               'mass fractions': {('si28',14,28) : 0.7}}
                        }
-    layers.create_layer(mock_zone_data(mass_fracs), mock_fun(.5), test_species)
+    func = lambda t: mock_fun(t,.5)
+    layers.create_layer(mock_zone_data(mass_fracs), func, test_species)
     assert layers == expected_result
 
 def mock_layer1():
@@ -42,7 +43,8 @@ def mock_layer1():
     layers = Layer()
     test_species = "si28"
     mass_fracs = [0.6,0.5,0.7]
-    layers.create_layer(mock_zone_data(mass_fracs), mock_fun(.5), test_species)
+    func = lambda t: mock_fun(t,.5)
+    layers.create_layer(mock_zone_data(mass_fracs), func, test_species)
     return layers
 
 
@@ -51,7 +53,8 @@ def mock_layer2():
     layers = Layer()
     test_species = "si28"
     mass_fracs = [0.6,0.5,0.7]
-    layers.create_layer(mock_zone_data(mass_fracs), mock_fun(.6), test_species)
+    func = lambda t: mock_fun(t,.6)
+    layers.create_layer(mock_zone_data(mass_fracs), func, test_species)
     return layers
 
 def test_update_layer(mock_zone_data):
