@@ -1,9 +1,9 @@
 Overview
 ========
 
-This is where you would put a brief overview of your package and it's
-functionality. It is also where the following tags will inform people of the 
-version, license, and testing/linting features you utilized in this package. 
+The layer_mix python package provides a way to store and mix layer 
+data. Layer data consists of grouping of 'zones' with similar characteristics 
+as defined by the user. 
 
 |pypi| |doc_stat| |license| |test| |lint| |lint-test| |black|
 
@@ -13,7 +13,7 @@ Installation
 Install from `PyPI <https://pypi.org/project/yourpackage>`_ with pip by
 typing in your favorite terminal::
 
-    $ pip install yourpackage
+    $ pip install layermix
 
 Usage
 -----
@@ -29,13 +29,13 @@ Authors
 Documentation
 -------------
 
-Here is where you would like to your documentation page.
+Here is where you would link to your documentation page.
 
 Contribute
 ----------
 
-- Issue Tracker: `<https://github.com/lucaswalls18/test/issues/>`_
-- Source Code: `<https://github.com/lucaswalls18/test/>`_
+- Issue Tracker: `<https://github.com/lucaswalls18/layer_mix/issues/>`_
+- Source Code: `<https://github.com/lucaswalls18/layer_mix/>`_
 
 License
 -------
