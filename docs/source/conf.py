@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = u'Sample Package'
+project = u'layerspy'
 copyright = u'2023, Lucas S Walls'
 author = u'Lucas S Walls'
 

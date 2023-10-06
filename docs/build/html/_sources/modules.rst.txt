@@ -1,7 +1,7 @@
-sample_package
-==============
+layer_mix
+=========
 
 .. toctree::
    :maxdepth: 4
 
-   sample_package
+   layer_mix

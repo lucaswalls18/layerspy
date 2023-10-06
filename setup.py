@@ -19,7 +19,7 @@ with open(path.join(here, "README.rst"), encoding="utf-8") as f:
     long_description = f.read()
 
 about = {}
-with open(path.join(here, "sample_package", "__about__.py")) as f:
+with open(path.join(here, "layer_mix", "__about__.py")) as f:
     exec(f.read(), about)
 
 # Arguments marked as "Required" below must be included for upload to PyPI.
@@ -41,7 +41,7 @@ setup(
     # This field corresponds to the "Description-Content-Type" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#description-content-type-optional
     long_description_content_type="text/x-rst",  # Optional (see note above)
-    url="https://github.com/lucaswalls18/test",  # Optional
+    url="https://github.com/lucaswalls18/layer_mix",  # Optional
     author="Clemson University",  # Optional
     author_email="lwalls@clemson.edu",  # Optional
     license="GPLv3+",
@@ -66,7 +66,7 @@ setup(
     # project page. What does your project relate to?
     #
     # Note that this is a string of words separated by whitespace, not a list.
-    keywords="sample python template",  # Optional
+    keywords="layers, data management",  # Optional
     # You can just specify package directories manually here if your project is
     # simple. Or you can use find_packages().
     #
@@ -127,9 +127,9 @@ setup(
     # maintainers, and where to support the project financially. The key is
     # what's used to render the link text on PyPI.
     project_urls={  # Optional
-        "Bug Reports": "https://github.com/lucaswalls18/test/issues",
+        "Bug Reports": "https://github.com/lucaswalls18/layer_mix/issues",
         #'Funding': 'NASA's Emerging Worlds Program',
         # 'Say Thanks!': 'http://saythanks.io/to/example',
-        "Source": "https://github.com/lucaswalls18/test",
+        "Source": "https://github.com/lucaswalls18/layer_mix",
     },
 )

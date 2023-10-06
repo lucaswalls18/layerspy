@@ -1,9 +1,10 @@
 Overview
 ========
-
-The layer_mix python package provides a way to store and mix layer 
-data. Layer data consists of grouping of 'zones' with similar characteristics 
-as defined by the user. 
+layerspy is a python library designed to provide essential functionality 
+for working with data relating to layers with distinct features, or species. 
+This package offers a set of tools and classes to create, manipulate, and 
+analyze layers of data, making it easier to manage and process complex datasets
+efficiently. 
 
 |pypi| |doc_stat| |license| |test| |lint| |lint-test| |black|
 
