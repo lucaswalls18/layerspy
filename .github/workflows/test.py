@@ -1,4 +1,6 @@
 import pytest
+import io, requests
+import wnutils.xml as wx
 from layer_mix import make_id, Layer, mix
 
 
@@ -10,22 +12,26 @@ def mock_zone_data(mock_mass_frac):
         zone[str(i)] = {'properties' : {'t9': 10}, 'mass fractions' : mass_frac}
     return zone 
     
+def mock_xml():
+    return wx.Xml(io.BytesIO(requests.get('https://osf.io/gf8x5/download').content))
 
 def mock_fun(x,frac):
     # Define a mock selection function for testing
     return x>frac
 
-def test_make_id(xml):
+def test_make_id():
     # Test the make_id function
     species = "si28"
+    xml = mock_xml()
     expected_result = ("si28", 14, 28)
     result = make_id(species, xml)
     assert result == expected_result
 
 
-def test_create_layer(mock_zone_data, mock_fun):
+def test_create_layer():
     # Test the create_layer method of the Layers class
     layers = Layer()
+    xml = mock_xml()
     test_species = "si28"
     mass_fracs = [0.6,0.5,0.7]
     # Call create_layer and assert the correctness of the result
@@ -35,8 +41,8 @@ def test_create_layer(mock_zone_data, mock_fun):
                               'mass fractions': {('si28',14,28) : 0.7}}
                        }
     func = lambda t: mock_fun(t,.5)
-    layers.create_layer(mock_zone_data(mass_fracs), func, test_species)
-    assert layers == expected_result
+    layers.create_layer(mock_zone_data(mass_fracs), func, test_species, xml)
+    assert layers.zones == expected_result
 
 def mock_layer1():
     # Create a mock layer1 dictionary for testing
@@ -44,7 +50,8 @@ def mock_layer1():
     test_species = "si28"
     mass_fracs = [0.6,0.5,0.7]
     func = lambda t: mock_fun(t,.5)
-    layers.create_layer(mock_zone_data(mass_fracs), func, test_species)
+    xml = mock_xml()
+    layers.create_layer(mock_zone_data(mass_fracs), func, test_species, xml)
     return layers
 
 
@@ -54,23 +61,25 @@ def mock_layer2():
     test_species = "si28"
     mass_fracs = [0.6,0.5,0.7]
     func = lambda t: mock_fun(t,.6)
-    layers.create_layer(mock_zone_data(mass_fracs), func, test_species)
+    xml = mock_xml()
+    layers.create_layer(mock_zone_data(mass_fracs), func, test_species, xml)
     return layers
 
-def test_update_layer(mock_zone_data):
+def test_update_layer():
     layer = Layer()
     expected_result = {"0" : {'properties' : {'t9':10},
                               'mass fractions': {('si28',14,28) : 0.4}}
                        }
     mass_frac = [0.4]
-    result = layer.update_layer(mock_zone_data(mass_frac))
-    assert result == expected_result
+    layer.update_layer(mock_zone_data(mass_frac))
+    assert layer.zones == expected_result
 
-def test_get_layer_average():
-    layer = mock_layer2()
-    expected_result = (0.6 + 0.7)/2
-    result = layer.get_layer_average('si28')
-    assert result == expected_result
+def test_make_average_layer():
+    layer = mock_layer1()
+    avg = (0.6 + 0.7)/2
+    result = layer.make_average_layer()
+    expected_result = {"0" : {'mass fractions': {('si28',14,28) : avg}}}
+    assert result.zones == expected_result
     
 
 #def test_mix(mock_layer1, mock_layer2):
