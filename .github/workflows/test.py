@@ -1,90 +1,91 @@
 import pytest
-import io, requests
-import wnutils.xml as wx
-from layer_mix import make_id, Layer, mix
+from layerspy import Layer, merge_layers
 
 
-def mock_zone_data(mock_mass_frac):
-    # Create a mock zone_data dictionary for testing
-    zone = {}
-    for i in range(len(mock_mass_frac)):
-        mass_frac = {('si28',14,28): mock_mass_frac[i]}
-        zone[str(i)] = {'properties' : {'t9': 10}, 'mass fractions' : mass_frac}
-    return zone 
-    
-def mock_xml():
-    return wx.Xml(io.BytesIO(requests.get('https://osf.io/gf8x5/download').content))
+def test_init_method():
+    # Test data
+    zone_data = {"zone1": 10, "zone2": 20, "zone3": 30}
 
-def mock_fun(x,frac):
-    # Define a mock selection function for testing
-    return x>frac
+    # Create an instance of the class
+    my_layer = Layer(zone_data)
 
-def test_make_id():
-    # Test the make_id function
-    species = "si28"
-    xml = mock_xml()
-    expected_result = ("si28", 14, 28)
-    result = make_id(species, xml)
-    assert result == expected_result
+    # Perform assertions to check if the initialization is correct
+    assert isinstance(my_layer, Layer)
+    assert my_layer.zones == zone_data
 
-
-def test_create_layer():
-    # Test the create_layer method of the Layers class
-    layers = Layer()
-    xml = mock_xml()
-    test_species = "si28"
-    mass_fracs = [0.6,0.5,0.7]
-    # Call create_layer and assert the correctness of the result
-    expected_result = {"0" : {'properties' : {'t9':10},
-                              'mass fractions': {('si28',14,28) : 0.6}},
-                       "2" : {'properties' : {'t9':10},
-                              'mass fractions': {('si28',14,28) : 0.7}}
-                       }
-    func = lambda t: mock_fun(t,.5)
-    layers.create_layer(mock_zone_data(mass_fracs), func, test_species, xml)
-    assert layers.zones == expected_result
-
-def mock_layer1():
-    # Create a mock layer1 dictionary for testing
-    layers = Layer()
-    test_species = "si28"
-    mass_fracs = [0.6,0.5,0.7]
-    func = lambda t: mock_fun(t,.5)
-    xml = mock_xml()
-    layers.create_layer(mock_zone_data(mass_fracs), func, test_species, xml)
-    return layers
-
-
-def mock_layer2():
-    # Create a mock layer2 dictionary for testing
-    layers = Layer()
-    test_species = "si28"
-    mass_fracs = [0.6,0.5,0.7]
-    func = lambda t: mock_fun(t,.6)
-    xml = mock_xml()
-    layers.create_layer(mock_zone_data(mass_fracs), func, test_species, xml)
-    return layers
 
 def test_update_layer():
-    layer = Layer()
-    expected_result = {"0" : {'properties' : {'t9':10},
-                              'mass fractions': {('si28',14,28) : 0.4}}
-                       }
-    mass_frac = [0.4]
-    layer.update_layer(mock_zone_data(mass_frac))
-    assert layer.zones == expected_result
+    # Test data
+    initial_data = {"zone1": 10, "zone2": 20}
+    new_data = {"zone3": 30, "zone4": 40}
+    duplicate_data = {"zone1": 50, "zone2": 60}
 
-def test_make_average_layer():
-    layer = mock_layer1()
-    avg = (0.6 + 0.7)/2
-    result = layer.make_average_layer()
-    expected_result = {"0" : {'mass fractions': {('si28',14,28) : avg}}}
-    assert result.zones == expected_result
-    
+    # Create an instance of the class and initialize it with initial_data
+    my_layer = Layer(initial_data)
 
-#def test_mix(mock_layer1, mock_layer2):
-    # Test the mix function
-    # Call the mix function and assert the correctness of the result
-#    expected_result = # Define the expected result
-#    result = mix(mock_layer1, mock_layer2, 0.1)
-#    assert result == expected_result
+    # Test updating with new_data
+    my_layer.update_layer(new_data)
+    assert my_layer.zones == {"zone1": 10, "zone2": 20, "zone3": 30, "zone4": 40}
+
+    # Test updating with duplicate_data, expect an error
+    with pytest.raises(ValueError):
+        my_layer.update_layer(duplicate_data)
+
+
+def test_remove_zones_from_layer():
+    # Test data
+    initial_data = {"zone1": 10, "zone2": 20, "zone3": 30, "zone4": 40}
+    keys_to_remove = ["zone1", "zone3"]  # zone5 doesn't exist in initial_data
+
+    # Create an instance of the class and initialize it with initial_data
+    my_layer = Layer(initial_data)
+
+    # Test removing zones with keys_to_remove
+    my_layer.remove_zones_from_layer(keys_to_remove)
+
+    # Check if zones have been removed correctly
+    assert my_layer.zones == {"zone2": 20, "zone4": 40}
+
+    # Test removing a key that doesn't exist, expect an error
+    with pytest.raises(ValueError):
+        my_layer.remove_zones_from_layer(["nonexistent_key"])
+
+
+def test_get_layer_subset_from_function():
+    # Test data
+    initial_data = {
+        "zone1": 10, "zone2": 20, "zone3": 30, "zone4": 40, "zone5": 50
+    }
+
+    # Create an instance of the class and initialize it with initial_data
+    my_layer = Layer(initial_data)
+
+    # Define a function to select zones with certain properties
+    def selection_function(x, y):
+        return x >= y
+
+    myfunc = lambda t: selection_function(t, 30)
+
+    # Call get_layer_subset_from_function with the selection_function
+    layer_subset = my_layer.get_layer_subset_from_function(myfunc)
+
+    # Check if the layer_subset matches the expected result
+    expected_result = {"zone3": 30, "zone4": 40, "zone5": 50}
+    assert layer_subset.zones == expected_result
+
+
+def test_merge_layers():
+    # Test data
+    layer1_data = {"zone1": 10, "zone2": 20, "zone3": 30}
+    layer2_data = {"zone4": 40, "zone5": 50, "zone6": 60}
+
+    # Create instances of YourClass and initialize them with data
+    layer1 = Layer(layer1_data)
+    layer2 = Layer(layer2_data)
+
+    # Call merge_layers with the two layers
+    merged_layer = merge_layers(layer1, layer2)
+
+    # Check if the merged_layer matches the expected result
+    expected_result = {"zone1": 10, "zone2": 20, "zone3": 30, "zone4": 40, "zone5": 50, "zone6": 60}
+    assert merged_layer.zones == expected_result
