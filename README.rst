@@ -45,17 +45,17 @@ The project is licensed under the GNU Public License v3 (or later).
 
 .. |pypi| image:: https://badge.fury.io/py/test.svg 
     :target: https://badge.fury.io/py/test
-.. |license| image:: https://img.shields.io/github/license/lucaswalls18/test
+.. |license| image:: https://img.shields.io/github/license/lucaswalls18/layerspy
     :alt: GitHub
-.. |doc_stat| image:: https://readthedocs.org/projects/test/badge/?version=latest
+.. |doc_stat| image:: https://readthedocs.org/projects/layerspy/badge/?version=latest
     :target: https://layerspy.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 .. |test| image:: https://github.com/lucaswalls18/layerspy/actions/workflows/test.yml/badge.svg?branch=main&event=push
-        :target: https://github.com/lucaswalls18/layerspy/actions/workflows/test.yml
+    :target: https://github.com/lucaswalls18/layerspy/actions/workflows/test.yml
 .. |lint| image:: https://img.shields.io/badge/linting-pylint-yellowgreen
     :target: https://github.com/pylint-dev/pylint
 .. |lint-test| image:: https://github.com/lucaswalls18/layerspy/actions/workflows/lint.yml/badge.svg?branch=main&event=push
-        :target: https://github.com/lucaswalls18/layerspy/actions/workflows/lint.yml    
+    :target: https://github.com/lucaswalls18/layerspy/actions/workflows/lint.yml    
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
 
