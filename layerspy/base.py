@@ -1,5 +1,6 @@
 """Module providing base functions"""
 
+
 class Layer:
     """A class for storing layer data"""
 
@@ -16,8 +17,7 @@ class Layer:
         for keys in zone_data:
             self.zones[keys] = zone_data[keys]
 
-
-    def update_layer(self, zone_data): 
+    def update_layer(self, zone_data):
         """Method to add zone data to an existing layer.
 
         Args:
@@ -31,9 +31,8 @@ class Layer:
         existing_keys = set(self.zones.keys())
         for keys in zone_data:
             if keys in existing_keys:
-                    raise ValueError("Duplicate key found: {}".format(keys))
+                raise ValueError(f"Duplicate key found: {keys}")
             self.zones[keys] = zone_data[keys]
-
 
     def remove_zones_from_layer(self, zone_keys):
         """Method to remove zone data by keys from a layer
@@ -52,9 +51,8 @@ class Layer:
         existing_keys = set(self.zones.keys())
         for keys in zone_keys:
             if keys not in existing_keys:
-                raise ValueError("Key '{}' does not match existing keys".format(keys))
+                raise ValueError("Key {keys} does not match existing keys")
             self.zones.pop(keys, None)
-
 
     def get_layer_subset_from_function(self, fun):
         """Method to create a layer object from a selection function.
@@ -72,7 +70,6 @@ class Layer:
         for zone, data in self.zones.items():
             if fun(data):
                 layer_subset[zone] = self.zones[zone]
-
 
         return Layer(layer_subset)
 
@@ -95,6 +92,5 @@ def merge_layers(layer1, layer2):
         new_layer[keys] = layer1.zones[keys]
     for keys in layer2.zones:
         new_layer[keys] = layer2.zones[keys]
-
 
     return Layer(new_layer)
