@@ -25,7 +25,12 @@ def test_update_layer():
 
     # Test updating with new_data
     my_layer.update_layer(new_data)
-    assert my_layer.zones == {"zone1": 10, "zone2": 20, "zone3": 30, "zone4": 40}
+    assert my_layer.zones == {
+        "zone1": 10,
+        "zone2": 20,
+        "zone3": 30,
+        "zone4": 40,
+    }
 
     # Test updating with duplicate_data, expect an error
     with pytest.raises(ValueError):
@@ -54,7 +59,11 @@ def test_remove_zones_from_layer():
 def test_get_layer_subset_from_function():
     # Test data
     initial_data = {
-        "zone1": 10, "zone2": 20, "zone3": 30, "zone4": 40, "zone5": 50
+        "zone1": 10,
+        "zone2": 20,
+        "zone3": 30,
+        "zone4": 40,
+        "zone5": 50,
     }
 
     # Create an instance of the class and initialize it with initial_data
@@ -87,5 +96,12 @@ def test_merge_layers():
     merged_layer = merge_layers(layer1, layer2)
 
     # Check if the merged_layer matches the expected result
-    expected_result = {"zone1": 10, "zone2": 20, "zone3": 30, "zone4": 40, "zone5": 50, "zone6": 60}
+    expected_result = {
+        "zone1": 10,
+        "zone2": 20,
+        "zone3": 30,
+        "zone4": 40,
+        "zone5": 50,
+        "zone6": 60,
+    }
     assert merged_layer.zones == expected_result
