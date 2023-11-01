@@ -131,7 +131,7 @@ def test_merge_layers():
     layer2 = Layer(layer2_data)
 
     # Call merge_layers with the two layers
-    merged_layer = layer1.merge_layers(layer2)
+    layer1.merge_layers(layer2)
 
     # Check if the merged_layer matches the expected result
     expected_result = {
@@ -142,7 +142,7 @@ def test_merge_layers():
         "zone5": 50,
         "zone6": 60,
         }
-    assert merged_layer.zones == expected_result
+    assert layer1.zones == expected_result
 
 def test_make_weight_dict():
     #Test data
