@@ -53,7 +53,12 @@ def test_update_layer():
 
     # Test updating with new_data
     my_layer.update_layer(new_data)
-    assert my_layer.zones == {"zone1": 10, "zone2": 20, "zone3": 30, "zone4": 40}
+    assert my_layer.zones == {
+        "zone1": 10,
+        "zone2": 20,
+        "zone3": 30,
+        "zone4": 40,
+    }
 
     # Test updating with duplicate_data, expect an error
     with pytest.raises(ValueError):
@@ -82,7 +87,11 @@ def test_remove_zones_from_layer():
 def test_get_layer_subset_from_function():
     # Test data
     initial_data = {
-        "zone1": 10, "zone2": 20, "zone3": 30, "zone4": 40, "zone5": 50
+        "zone1": 10,
+        "zone2": 20,
+        "zone3": 30,
+        "zone4": 40,
+        "zone5": 50,
     }
 
     # Create an instance of the class and initialize it with initial_data
@@ -122,11 +131,18 @@ def test_merge_layers():
     layer2 = Layer(layer2_data)
 
     # Call merge_layers with the two layers
-    layer1.merge_layers(layer2)
+    merged_layer = layer1.merge_layers(layer2)
 
     # Check if the merged_layer matches the expected result
-    expected_result = {"zone1": 10, "zone2": 20, "zone3": 30, "zone4": 40, "zone5": 50, "zone6": 60}
-    assert layer1.zones == expected_result
+    expected_result = {
+        "zone1": 10,
+        "zone2": 20,
+        "zone3": 30,
+        "zone4": 40,
+        "zone5": 50,
+        "zone6": 60,
+        }
+    assert merged_layer.zones == expected_result
 
 def test_make_weight_dict():
     #Test data
@@ -143,4 +159,4 @@ def test_make_weight_dict():
     eq_weights = layer.make_weight_dict()
     assert eq_weights == {'zone1' : 1/2,
                           'zone2' : 1/2}
-    
+
