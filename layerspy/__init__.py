@@ -2,4 +2,4 @@
 layerspy
 """
 
-import layerspy.layers
+from layerspy.layers import *
