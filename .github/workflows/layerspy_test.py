@@ -1,5 +1,5 @@
 import pytest
-from layerspy import *
+from layerspy import Layer
 
 
 def test_init_method():
