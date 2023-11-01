@@ -1,5 +1,5 @@
 import pytest
-from layerspy import Layer, merge_layers
+from layerspy import Layer
 
 
 def test_init_method():
@@ -12,6 +12,34 @@ def test_init_method():
     # Perform assertions to check if the initialization is correct
     assert isinstance(my_layer, Layer)
     assert my_layer.zones == zone_data
+
+
+def test_get_zone_data():
+    #Test data
+    zone_data = {"zone1": 10, "zone2": 20, "zone3": 30}
+
+    #Create an instance of the class
+    my_layer = Layer(zone_data)
+
+    #pull zone data
+    test = my_layer.get_zone_data()
+    assert test == zone_data
+
+
+def test_addition():
+    data1 = {"zone1": 10, "zone2": 20}
+    data2 = {"zone3": 30, "zone4": 40}
+
+    layer1 = Layer(data1)
+    layer2 = Layer(data2)
+
+    data3 = {"zone1":10, "zone2": 20, "zone3": 30, "zone4": 40}
+    layer3 = Layer(data3)
+
+    test = layer1 + layer2
+
+    assert test == layer3
+    assert layer1 != layer2
 
 
 def test_update_layer():
@@ -74,6 +102,16 @@ def test_get_layer_subset_from_function():
     assert layer_subset.zones == expected_result
 
 
+def test_copy():
+    #Test data
+    data = {
+        "zone1": 10, "zone2": 20, "zone3": 30, "zone4": 40, "zone5": 50
+    }
+    layer = Layer(data)
+    layer_copy = layer.copy()
+    assert layer == layer_copy
+
+
 def test_merge_layers():
     # Test data
     layer1_data = {"zone1": 10, "zone2": 20, "zone3": 30}
@@ -84,8 +122,25 @@ def test_merge_layers():
     layer2 = Layer(layer2_data)
 
     # Call merge_layers with the two layers
-    merged_layer = merge_layers(layer1, layer2)
+    layer1.merge_layers(layer2)
 
     # Check if the merged_layer matches the expected result
     expected_result = {"zone1": 10, "zone2": 20, "zone3": 30, "zone4": 40, "zone5": 50, "zone6": 60}
-    assert merged_layer.zones == expected_result
+    assert layer1.zones == expected_result
+
+def test_make_weight_dict():
+    #Test data
+    data = {'zone1' : {'properties' : {'mass' : 10}},
+            'zone2' : {'properties' : {'mass' : 20}}
+        }
+
+    layer = Layer(data)
+
+    weights = layer.make_weight_dict(prop = 'mass')
+    assert weights == {'zone1' : 1/3,
+                       'zone2' : 2/3}
+
+    eq_weights = layer.make_weight_dict()
+    assert eq_weights == {'zone1' : 1/2,
+                          'zone2' : 1/2}
+    
