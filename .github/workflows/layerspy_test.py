@@ -1,6 +1,23 @@
 import pytest
 from layerspy import Layer
 
+def compare_dicts(dict1, dict2, tol=1e-6):
+    if len(dict1) != len(dict2):
+        return False
+    for key, value1 in dict1.items():
+        if key not in dict2:
+            return False
+        value2 = dict2[key]
+        if isinstance(value1, dict) and isinstance(value2, dict):
+            if not compare_dicts(value1, value2, tol):
+                return False
+        elif isinstance(value1, float) and isinstance(value2, float):
+            if abs(value1 - value2) > tol:
+                return False
+        else:
+            if value1 != value2:
+                return False
+    return True
 
 def test_init_method():
     # Test data
@@ -160,3 +177,27 @@ def test_make_weight_dict():
     assert eq_weights == {'zone1' : 1/2,
                           'zone2' : 1/2}
 
+def test_multiplication():
+    data = {'zone1' : {'properties' : {'mass' : 10}},
+            'zone2' : {'properties' : {'mass' : 20}}
+        }
+    layer = Layer(data)
+    weights = layer.make_weight_dict(prop = 'mass')
+
+    scaled_layer = layer*weights
+    result = {'zone1' : {'properties' : {'mass' : 10*1/3}},
+            'zone2' : {'properties' : {'mass' : 20*2/3}}
+        }
+
+    assert compare_dicts(scaled_layer.zones, result)
+
+def test_make_mixed_layer():
+    data = {'zone1' : {'properties' : {'mass' : 10}},
+            'zone2' : {'properties' : {'mass' : 20}}
+        }
+    layer = Layer(data)
+    mixture = layer.make_mixed_layer(layer.make_weight_dict(prop='mass'), 'mixture')
+
+    result = {'mixture': {'properties' : {'mass': 10/3 + 40/3}}}
+
+    assert compare_dicts(mixture.zones, result)

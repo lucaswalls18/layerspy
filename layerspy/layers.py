@@ -13,34 +13,49 @@ def mult_dict_vals(dictionary, multiplier):
     Returns:
         On successful return the dictonary will be scaled by multiplier
     """
+    for key, value in dictionary.items():
+        if isinstance(value, (int, float)):
+            dictionary[key] = value * multiplier
+        elif isinstance(value, dict):
+            mult_dict_vals(value, multiplier)
+
+def create_empty_dict_structure(dictionary):
+    """Method used to average layers"""
     if isinstance(dictionary, dict):
+        empty_dict = {}
         for key, value in dictionary.items():
-            if isinstance(value, (int, float)):
-                dictionary[key] = value * multiplier
-            elif isinstance(value, dict):
-                mult_dict_vals(value, multiplier)
+            empty_dict[key] = create_empty_dict_structure(value)
+        return empty_dict
+    # Initialize with 0 for numeric values, or an appropriate default value
+    if isinstance(dictionary, (int, float)):
+        return 0
+    return None  # This is the implicit return for other types
 
-
-def sum_all_properties_in_all_zones(input_dict):
-    """Method used in the mix layer function"""
-    summed_dict = {}
-
-    for key, value in input_dict.items():
-        if isinstance(value, dict):
-            # If the value is a dictionary, recursively sum it
-            nested_sum = sum_all_properties_in_all_zones(value)
-            for subkey, subvalue in nested_sum.items():
-                if subkey in summed_dict:
-                    summed_dict[subkey] += subvalue
-                else:
-                    summed_dict[subkey] = subvalue
-        elif isinstance(value, (int, float)):
-            if key in summed_dict:
-                summed_dict[key] += value
+def add_dicts(dict1,dict2):
+    """Method used to average layers"""
+    result = {}
+    for key in dict1:
+        if key in dict2:
+            if isinstance(dict1[key], dict) and isinstance(dict2[key], dict):
+                result[key] = add_dicts(dict1[key], dict2[key])
             else:
-                summed_dict[key] = value
+                result[key] = dict1[key] + dict2[key]
+        else:
+            result[key] = dict1[key]
+    for key in dict2:
+        if key not in result:
+            result[key] = dict2[key]
+    return result
 
-    return summed_dict
+def sum_dicts(dicts):
+    """Method used to average layers"""
+    if not dicts:
+        return create_empty_dict_structure(dicts[0])
+
+    result = create_empty_dict_structure(dicts[0])
+    for dictionaries in dicts:
+        result = add_dicts(result, dictionaries)
+    return result
 
 
 class Layer:
@@ -215,7 +230,7 @@ class Layer:
             }
         return weights
 
-    def make_mixed_layer(self, weight_dictionary):
+    def make_mixed_layer(self, weight_dictionary, mix_label):
         """Method to mix a layer based on a given weight dictionary
 
         Args:
@@ -226,6 +241,9 @@ class Layer:
         """
         scaled_layer = self * weight_dictionary
         scaled_zone_dict = scaled_layer.get_zone_data()
-        mixture = sum_all_properties_in_all_zones(scaled_zone_dict)
+        dicts = list(scaled_zone_dict.values())
+        result_dict = sum_dicts(dicts)
+        mix_zone = {mix_label: {}}
+        mix_zone[mix_label] = result_dict
 
-        return mixture
+        return Layer(mix_zone)
