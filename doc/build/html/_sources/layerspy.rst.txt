@@ -9,10 +9,10 @@ layerspy package
 Submodules
 ----------
 
-layerspy.base module
---------------------
+layerspy.layers module
+----------------------
 
-.. automodule:: layerspy.base
+.. automodule:: layerspy.layers
     :members:
     :undoc-members:
     :show-inheritance:

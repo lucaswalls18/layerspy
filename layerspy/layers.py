@@ -13,11 +13,14 @@ def mult_dict_vals(dictionary, multiplier):
     Returns:
         On successful return the dictonary will be scaled by multiplier
     """
+    new_dict = {}
     for key, value in dictionary.items():
         if isinstance(value, (int, float)):
-            dictionary[key] = value * multiplier
+            new_dict[key] = value * multiplier
         elif isinstance(value, dict):
-            mult_dict_vals(value, multiplier)
+            new_dict[key] = {}
+            new_dict[key] = mult_dict_vals(value, multiplier)
+    return new_dict
 
 def create_empty_dict_structure(dictionary):
     """Method used to average layers"""
@@ -38,7 +41,7 @@ def add_dicts(dict1,dict2):
         if key in dict2:
             if isinstance(dict1[key], dict) and isinstance(dict2[key], dict):
                 result[key] = add_dicts(dict1[key], dict2[key])
-            else:
+            elif (isinstance(dict1[key], (float,int)) and isinstance(dict2[key], (float,int))):
                 result[key] = dict1[key] + dict2[key]
         else:
             result[key] = dict1[key]
@@ -106,29 +109,37 @@ class Layer:
         union = {**self.get_zone_data(), **layer.get_zone_data()}
         return Layer(union)
 
-    def __mul__(self, weight_dict):
-        """Method defining multiplication of a layer by a scalar
-
-        Args:
-            ``weight_dict`` (:obj:`dict`): A dictionary filled with weights for each zone
-
-        Returns:
-            :obj:`Layer`: A weighted layer
-        """
-
-        zones = self.get_zone_data()
-        for keys in zones:
-            weight = weight_dict[keys]
-            mult_dict_vals(zones[keys], weight)
-        return Layer(zones)
-
     def copy(self):
         """Method to return a copy of a layer
 
         Returns:
             :obj:`Layer`: A copy of self
         """
-        return self
+        zone_data = self.get_zone_data()
+        copy = Layer(zone_data)
+        return copy
+
+    def __mul__(self, weight_dict):  ##generalize for no nested structure  - needs testing
+        """Method defining multiplication of a layer by a scalar
+
+        Args:
+            ``weight_dict`` (:obj:`dict`): A dictionary filled with weights for each zone to scale
+            the layer
+
+        Returns:
+            :obj:`Layer`: A weighted layer
+        """
+        self_copy = self.copy_layer()
+        zones = self_copy.get_zone_data()
+        new_zones = {}
+        for keys, values in zones.items():
+            weight = weight_dict[keys]
+            if isinstance(values, (int,float)):
+                new_zones[keys] = weight*values
+            else:
+                new_zones[keys] = mult_dict_vals(zones[keys], weight)
+        return Layer(new_zones)
+
 
     def update_layer(self, zone_data):
         """Method to add zone data to an existing layer.
@@ -138,7 +149,7 @@ class Layer:
             ``zone_data`` (:obj:`dict`) A dictionary of zone data
 
         Returns: On successful return the additional zone data will
-                be added to the layer
+        be added to the layer
 
         """
         existing_keys = set(self.zones.keys())
@@ -146,6 +157,7 @@ class Layer:
             if keys in existing_keys:
                 raise ValueError(f"Duplicate key found: {keys}")
             self.zones[keys] = zone_data[keys]
+
 
     def remove_zones_from_layer(self, zone_keys):
         """Method to remove zone data by keys from a layer
@@ -205,6 +217,7 @@ class Layer:
             prop_sum += self.zones[keys]["properties"][prop]
         return prop_sum
 
+
     def make_weight_dict(self, prop=None):
         """Method to make a weight dictionary for weighted averages
 
@@ -230,20 +243,24 @@ class Layer:
             }
         return weights
 
-    def make_mixed_layer(self, weight_dictionary, mix_label):
+    def make_mixed_layer(self, weight_dictionary, mix_label='mixture'):
         """Method to mix a layer based on a given weight dictionary
 
         Args:
             ``weight_dictionary`` (:obj:`dict`): A dictionary of weights
 
+            ``mix_label`` (:obj:`str`): A string to label the mixed zone data
+
         Returns:
-            :obj:`Layer`: A single zone layer containing the mixture
+            :obj:`Layer`: A single zone layer containing the mixture of all zones scaled by
+            the given weight dictionary 
         """
+#        self_copy = self.copy_layer()
         scaled_layer = self * weight_dictionary
         scaled_zone_dict = scaled_layer.get_zone_data()
         dicts = list(scaled_zone_dict.values())
         result_dict = sum_dicts(dicts)
-        mix_zone = {mix_label: {}}
+        mix_zone = {}
         mix_zone[mix_label] = result_dict
 
         return Layer(mix_zone)
