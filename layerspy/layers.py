@@ -22,6 +22,7 @@ def mult_dict_vals(dictionary, multiplier):
             new_dict[key] = mult_dict_vals(value, multiplier)
     return new_dict
 
+
 def create_empty_dict_structure(dictionary):
     """Method used to average layers"""
     if isinstance(dictionary, dict):
@@ -34,14 +35,17 @@ def create_empty_dict_structure(dictionary):
         return 0
     return None  # This is the implicit return for other types
 
-def add_dicts(dict1,dict2):
+
+def add_dicts(dict1, dict2):
     """Method used to average layers"""
     result = {}
     for key in dict1:
         if key in dict2:
             if isinstance(dict1[key], dict) and isinstance(dict2[key], dict):
                 result[key] = add_dicts(dict1[key], dict2[key])
-            elif (isinstance(dict1[key], (float,int)) and isinstance(dict2[key], (float,int))):
+            elif isinstance(dict1[key], (float, int)) and isinstance(
+                dict2[key], (float, int)
+            ):
                 result[key] = dict1[key] + dict2[key]
         else:
             result[key] = dict1[key]
@@ -49,6 +53,7 @@ def add_dicts(dict1,dict2):
         if key not in result:
             result[key] = dict2[key]
     return result
+
 
 def sum_dicts(dicts):
     """Method used to average layers"""
@@ -119,7 +124,7 @@ class Layer:
         copy = Layer(zone_data)
         return copy
 
-    def __mul__(self, weight_dict):  ##generalize for no nested structure  - needs testing
+    def __mul__(self, weight_dict):
         """Method defining multiplication of a layer by a scalar
 
         Args:
@@ -129,17 +134,16 @@ class Layer:
         Returns:
             :obj:`Layer`: A weighted layer
         """
-        self_copy = self.copy_layer()
+        self_copy = self.copy()
         zones = self_copy.get_zone_data()
         new_zones = {}
         for keys, values in zones.items():
             weight = weight_dict[keys]
-            if isinstance(values, (int,float)):
-                new_zones[keys] = weight*values
+            if isinstance(values, (int, float)):
+                new_zones[keys] = weight * values
             else:
                 new_zones[keys] = mult_dict_vals(zones[keys], weight)
         return Layer(new_zones)
-
 
     def update_layer(self, zone_data):
         """Method to add zone data to an existing layer.
@@ -157,7 +161,6 @@ class Layer:
             if keys in existing_keys:
                 raise ValueError(f"Duplicate key found: {keys}")
             self.zones[keys] = zone_data[keys]
-
 
     def remove_zones_from_layer(self, zone_keys):
         """Method to remove zone data by keys from a layer
@@ -217,7 +220,6 @@ class Layer:
             prop_sum += self.zones[keys]["properties"][prop]
         return prop_sum
 
-
     def make_weight_dict(self, prop=None):
         """Method to make a weight dictionary for weighted averages
 
@@ -243,7 +245,7 @@ class Layer:
             }
         return weights
 
-    def make_mixed_layer(self, weight_dictionary, mix_label='mixture'):
+    def make_mixed_layer(self, weight_dictionary, mix_label="mixture"):
         """Method to mix a layer based on a given weight dictionary
 
         Args:
@@ -253,9 +255,9 @@ class Layer:
 
         Returns:
             :obj:`Layer`: A single zone layer containing the mixture of all zones scaled by
-            the given weight dictionary 
+            the given weight dictionary
         """
-#        self_copy = self.copy_layer()
+        #        self_copy = self.copy_layer()
         scaled_layer = self * weight_dictionary
         scaled_zone_dict = scaled_layer.get_zone_data()
         dicts = list(scaled_zone_dict.values())
