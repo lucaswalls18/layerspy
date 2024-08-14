@@ -11,7 +11,7 @@ Welcome to layerspy's documentation!
    :caption: Contents:
 
    readme
-   modules
+   documentation
 
 
 Indices and tables
@@ -19,4 +19,4 @@ Indices and tables
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
+

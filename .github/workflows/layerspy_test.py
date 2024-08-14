@@ -21,7 +21,7 @@ def compare_dicts(dict1, dict2, tol=1e-6):
 
 def test_init_method():
     # Test data
-    zone_data = {"zone1": 10, "zone2": 20, "zone3": 30}
+    zone_data = {"zone1": 10, "zone2": 20, "zone3": {'subzone': 'test'}}
 
     # Create an instance of the class
     my_layer = Layer(zone_data)

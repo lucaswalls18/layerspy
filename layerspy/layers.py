@@ -1,34 +1,27 @@
 """Module providing base functions"""
 
+def _get_sum_of_property(self, prop):
+        prop_sum = 0
+        for keys in self.zones:
+            prop_sum += self.zones[keys]["properties"][prop]
+        return prop_sum
 
-def mult_dict_vals(dictionary, multiplier):
-    """Method to multiply dictionary values to be used in the __mul__
-        operator for layers
-
-    Args:
-        ``dictionary`` (:obj:`dict`): dictionary to be scaled
-
-        ``multiplier`` (:obj:`float`): Scalar to multiply the dictionary by
-
-    Returns:
-        On successful return the dictonary will be scaled by multiplier
-    """
+def _mult_dict_vals(dictionary, multiplier):
     new_dict = {}
     for key, value in dictionary.items():
         if isinstance(value, (int, float)):
             new_dict[key] = value * multiplier
         elif isinstance(value, dict):
             new_dict[key] = {}
-            new_dict[key] = mult_dict_vals(value, multiplier)
+            new_dict[key] = _mult_dict_vals(value, multiplier)
     return new_dict
 
 
-def create_empty_dict_structure(dictionary):
-    """Method used to average layers"""
+def _create_empty_dict_structure(dictionary):
     if isinstance(dictionary, dict):
         empty_dict = {}
         for key, value in dictionary.items():
-            empty_dict[key] = create_empty_dict_structure(value)
+            empty_dict[key] = _create_empty_dict_structure(value)
         return empty_dict
     # Initialize with 0 for numeric values, or an appropriate default value
     if isinstance(dictionary, (int, float)):
@@ -36,13 +29,12 @@ def create_empty_dict_structure(dictionary):
     return None  # This is the implicit return for other types
 
 
-def add_dicts(dict1, dict2):
-    """Method used to average layers"""
+def _add_dicts(dict1, dict2):
     result = {}
     for key in dict1:
         if key in dict2:
             if isinstance(dict1[key], dict) and isinstance(dict2[key], dict):
-                result[key] = add_dicts(dict1[key], dict2[key])
+                result[key] = _add_dicts(dict1[key], dict2[key])
             elif isinstance(dict1[key], (float, int)) and isinstance(
                 dict2[key], (float, int)
             ):
@@ -55,14 +47,13 @@ def add_dicts(dict1, dict2):
     return result
 
 
-def sum_dicts(dicts):
-    """Method used to average layers"""
+def _sum_dicts(dicts):
     if not dicts:
-        return create_empty_dict_structure(dicts[0])
+        return _create_empty_dict_structure(dicts[0])
 
-    result = create_empty_dict_structure(dicts[0])
+    result = _create_empty_dict_structure(dicts[0])
     for dictionaries in dicts:
-        result = add_dicts(result, dictionaries)
+        result = _add_dicts(result, dictionaries)
     return result
 
 
@@ -76,7 +67,7 @@ class Layer:
             ``zone_data`` (:obj:`dict`): A dictionary of zone data
 
         Returns:
-            A layer which represents the given zone data
+            (:obj:`Layer`): A layer which represents the given zone data
         """
         self.zones = {}
         self.zones = {keys: zone_data[keys] for keys in zone_data}
@@ -85,22 +76,22 @@ class Layer:
         """Method for retrieving the zone data of a given layer
 
         Returns:
-            :obj:`dict`: of zone data
+            :obj:`dict`: A dictionary of zone data
         """
         zones = {}
         zones = {key: self.zones[key] for key in self.zones}
         return zones
 
-    def __eq__(self, other):
+    def __eq__(self, layer):
         """Method for comparing two Layer instances for equality
 
         Args:
-            other (Layer): Another Layer instance to compare with self
+            ``layer`` (:obj:`Layer`): Another Layer instance to compare with self
 
         Returns:
             bool: True if the zone data of both instances is equal, False otherwise
         """
-        return self.zones == other.zones
+        return self.zones == layer.zones
 
     def __add__(self, layer):
         """Method defining addition between two layers as a union
@@ -109,7 +100,7 @@ class Layer:
             ``layer`` (:obj:`Layer`): Layer to add to self
 
         Returns:
-            :obj:`Layer`: A new layer containing zone data from self and layer
+            :obj:`Layer`: A new layer containing zone data from self and ``layer``
         """
         union = {**self.get_zone_data(), **layer.get_zone_data()}
         return Layer(union)
@@ -132,7 +123,7 @@ class Layer:
             the layer
 
         Returns:
-            :obj:`Layer`: A weighted layer
+            :obj:`Layer`: A scaled layer
         """
         self_copy = self.copy()
         zones = self_copy.get_zone_data()
@@ -142,7 +133,7 @@ class Layer:
             if isinstance(values, (int, float)):
                 new_zones[keys] = weight * values
             else:
-                new_zones[keys] = mult_dict_vals(zones[keys], weight)
+                new_zones[keys] = _mult_dict_vals(zones[keys], weight)
         return Layer(new_zones)
 
     def update_layer(self, zone_data):
@@ -152,8 +143,9 @@ class Layer:
 
             ``zone_data`` (:obj:`dict`) A dictionary of zone data
 
-        Returns: On successful return the additional zone data will
-        be added to the layer
+        Returns:
+            On successful return the additional zone data will
+            be added to the layer
 
         """
         existing_keys = set(self.zones.keys())
@@ -182,25 +174,6 @@ class Layer:
                 raise ValueError("Key {keys} does not match existing keys")
             self.zones.pop(keys, None)
 
-    def get_layer_subset_from_function(self, fun):
-        """Method to create a layer object from a selection function.
-
-        Args:
-            ``fun`` (:obj:`func`): A function to select zones with
-                                  certain properties
-
-        Returns:
-            :obj:`Layer`: defined by new similarities defined by your function
-
-        """
-        layer_subset = {}
-
-        for zone, data in self.zones.items():
-            if fun(data):
-                layer_subset[zone] = self.zones[zone]
-
-        return Layer(layer_subset)
-
     def merge_layers(self, layer):
         """Method to merge a layer into self
 
@@ -213,19 +186,12 @@ class Layer:
         for keys in layer.zones:
             self.zones[keys] = layer.zones[keys]
 
-    def get_sum_of_property(self, prop):
-        """Method to ge the sum of a specific property in all zones"""
-        prop_sum = 0
-        for keys in self.zones:
-            prop_sum += self.zones[keys]["properties"][prop]
-        return prop_sum
-
     def make_weight_dict(self, prop=None):
         """Method to make a weight dictionary for weighted averages
 
         Args:
-            ``prop`` (:obj:`str`): A string of a property to define the weights of each
-            zone
+            ``prop`` (:obj:`str`): A string of a property in the zone
+            data to define the weights of each zone off of
 
         Returns:
             :obj:`dict`: of the weight to be assigned to each zone in a layer. Defaults to
@@ -238,7 +204,7 @@ class Layer:
             weight = 1 / total_zones
             weights = {key: weight for key in self.zones}
         else:
-            prop_sum = self.get_sum_of_property(prop)
+            prop_sum = self._get_sum_of_property(prop)
             weights = {
                 key: self.zones[key]["properties"][prop] / prop_sum
                 for key in self.zones
@@ -251,17 +217,17 @@ class Layer:
         Args:
             ``weight_dictionary`` (:obj:`dict`): A dictionary of weights
 
-            ``mix_label`` (:obj:`str`): A string to label the mixed zone data
+            ``mix_label`` (:obj:`str`): A string to label the mixed zone data.
+            Default is "mixture"
 
         Returns:
             :obj:`Layer`: A single zone layer containing the mixture of all zones scaled by
             the given weight dictionary
         """
-        #        self_copy = self.copy_layer()
         scaled_layer = self * weight_dictionary
         scaled_zone_dict = scaled_layer.get_zone_data()
         dicts = list(scaled_zone_dict.values())
-        result_dict = sum_dicts(dicts)
+        result_dict = _sum_dicts(dicts)
         mix_zone = {}
         mix_zone[mix_label] = result_dict
 

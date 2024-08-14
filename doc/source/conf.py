@@ -14,20 +14,24 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0,'../../layerspy')
+#sys.path.insert(0, os.path.abspath('.'))
+#sys.path.insert(0,'../../layerspy')
+
+sys.path.insert(0,os.path.abspath("../.."))
+
+base_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), "../..")
+
+about = {}
+with open(os.path.join(base_dir, "layerspy", "__about__.py")) as f:
+    exec(f.read(), about)
 
 # -- Project information -----------------------------------------------------
 
-project = u'layerspy'
-copyright = u'2023, Lucas S Walls'
-author = u'Lucas S Walls'
+project = about["__title__"]
+copyright = about["__copyright__"]
+author = about["__author__"]
 
-# The short X.Y version
-version = u''
-# The full version, including alpha/beta/rc tags
-release = u'1.0.0'
-
+version = release = about["__version__"]
 
 # -- General configuration ---------------------------------------------------
 
@@ -40,6 +44,13 @@ release = u'1.0.0'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    "sphinx.ext.doctest",
+    "sphinx.ext.mathjax",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.coverage",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.githubpages",
+    "sphinx.ext.todo"
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -59,7 +70,7 @@ master_doc = 'index'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en' 
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -67,7 +78,7 @@ language = None
 exclude_patterns = []
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = None
+pygments_style = "sphinx"
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -156,6 +167,13 @@ texinfo_documents = [
 ]
 
 
+
+intersphinx_mapping = {
+        "python": ("https://docs.python.org/3", None),
+}
+
+todo_include_todos = True
+"""
 # -- Options for Epub output -------------------------------------------------
 
 # Bibliographic Dublin Core info.
@@ -173,5 +191,5 @@ epub_title = project
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
 
+"""
 
-# -- Extension configuration -------------------------------------------------

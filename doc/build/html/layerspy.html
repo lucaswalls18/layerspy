@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>layerspy package &mdash; layerspy 1.0.0 documentation</title>
@@ -14,12 +14,12 @@
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="_static/documentation_options.js?v=8d563738"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="layerspy" href="modules.html" /> 
+    <link rel="prev" title="Documentation" href="documentation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -33,6 +33,9 @@
           <a href="index.html" class="icon icon-home">
             layerspy
           </a>
+              <div class="version">
+                1.0.0
+              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -44,15 +47,10 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="readme.html">Overview</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">layerspy</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="documentation.html">Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">layerspy package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-layerspy.layers">layerspy.layers module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#layerspy.layers.Layer"><code class="docutils literal notranslate"><span class="pre">Layer</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#layerspy.layers.add_dicts"><code class="docutils literal notranslate"><span class="pre">add_dicts()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#layerspy.layers.create_empty_dict_structure"><code class="docutils literal notranslate"><span class="pre">create_empty_dict_structure()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#layerspy.layers.mult_dict_vals"><code class="docutils literal notranslate"><span class="pre">mult_dict_vals()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#layerspy.layers.sum_dicts"><code class="docutils literal notranslate"><span class="pre">sum_dicts()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -75,7 +73,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">layerspy</a></li>
+          <li class="breadcrumb-item"><a href="documentation.html">Documentation</a></li>
       <li class="breadcrumb-item active">layerspy package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/layerspy.rst.txt" rel="nofollow"> View page source</a>
@@ -89,20 +87,17 @@
   <section id="module-layerspy">
 <span id="layerspy-package"></span><h1>layerspy package<a class="headerlink" href="#module-layerspy" title="Link to this heading"></a></h1>
 <p>layerspy</p>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
-</section>
 <section id="module-layerspy.layers">
 <span id="layerspy-layers-module"></span><h2>layerspy.layers module<a class="headerlink" href="#module-layerspy.layers" title="Link to this heading"></a></h2>
 <p>Module providing base functions</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="layerspy.layers.Layer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">layerspy.layers.</span></span><span class="sig-name descname"><span class="pre">Layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zone_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#layerspy.layers.Layer" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">layerspy.layers.</span></span><span class="sig-name descname"><span class="pre">Layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zone_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/layerspy/layers.html#Layer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#layerspy.layers.Layer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A class for storing layer data</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="layerspy.layers.Layer.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#layerspy.layers.Layer.copy" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/layerspy/layers.html#Layer.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#layerspy.layers.Layer.copy" title="Link to this definition"></a></dt>
 <dd><p>Method to return a copy of a layer</p>
 <dl class="simple">
 <dt>Returns:</dt><dd><p><a class="reference internal" href="#layerspy.layers.Layer" title="layerspy.layers.Layer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Layer</span></code></a>: A copy of self</p>
@@ -111,57 +106,39 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="layerspy.layers.Layer.get_layer_subset_from_function">
-<span class="sig-name descname"><span class="pre">get_layer_subset_from_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fun</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#layerspy.layers.Layer.get_layer_subset_from_function" title="Link to this definition"></a></dt>
-<dd><p>Method to create a layer object from a selection function.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">fun</span></code> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">func</span></code>): A function to select zones with</dt><dd><p>certain properties</p>
-</dd>
-</dl>
-</dd>
-<dt>Returns:</dt><dd><p><a class="reference internal" href="#layerspy.layers.Layer" title="layerspy.layers.Layer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Layer</span></code></a>: defined by new similarities defined by your function</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="layerspy.layers.Layer.get_sum_of_property">
-<span class="sig-name descname"><span class="pre">get_sum_of_property</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prop</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#layerspy.layers.Layer.get_sum_of_property" title="Link to this definition"></a></dt>
-<dd><p>Method to ge the sum of a specific property in all zones</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="layerspy.layers.Layer.get_zone_data">
-<span class="sig-name descname"><span class="pre">get_zone_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#layerspy.layers.Layer.get_zone_data" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_zone_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/layerspy/layers.html#Layer.get_zone_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#layerspy.layers.Layer.get_zone_data" title="Link to this definition"></a></dt>
 <dd><p>Method for retrieving the zone data of a given layer</p>
 <dl class="simple">
-<dt>Returns:</dt><dd><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>: of zone data</p>
+<dt>Returns:</dt><dd><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>: A dictionary of zone data</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="layerspy.layers.Layer.make_mixed_layer">
-<span class="sig-name descname"><span class="pre">make_mixed_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight_dictionary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mix_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#layerspy.layers.Layer.make_mixed_layer" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">make_mixed_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight_dictionary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mix_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mixture'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/layerspy/layers.html#Layer.make_mixed_layer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#layerspy.layers.Layer.make_mixed_layer" title="Link to this definition"></a></dt>
 <dd><p>Method to mix a layer based on a given weight dictionary</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">weight_dictionary</span></code> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>): A dictionary of weights</p>
+<dl>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">weight_dictionary</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>): A dictionary of weights</p>
+<p><code class="docutils literal notranslate"><span class="pre">mix_label</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): A string to label the mixed zone data.
+Default is “mixture”</p>
 </dd>
-<dt>Returns:</dt><dd><p><a class="reference internal" href="#layerspy.layers.Layer" title="layerspy.layers.Layer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Layer</span></code></a>: A single zone layer containing the mixture</p>
+<dt>Returns:</dt><dd><p><a class="reference internal" href="#layerspy.layers.Layer" title="layerspy.layers.Layer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Layer</span></code></a>: A single zone layer containing the mixture of all zones scaled by
+the given weight dictionary</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="layerspy.layers.Layer.make_weight_dict">
-<span class="sig-name descname"><span class="pre">make_weight_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#layerspy.layers.Layer.make_weight_dict" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">make_weight_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/layerspy/layers.html#Layer.make_weight_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#layerspy.layers.Layer.make_weight_dict" title="Link to this definition"></a></dt>
 <dd><p>Method to make a weight dictionary for weighted averages</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">prop</span></code> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>): A string of a property to define the weights of each
-zone</p>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">prop</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>): A string of a property in the zone
+data to define the weights of each zone off of</p>
 </dd>
-<dt>Returns:</dt><dd><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>: of the weight to be assigned to each zone in a layer. Defaults to
+<dt>Returns:</dt><dd><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>: of the weight to be assigned to each zone in a layer. Defaults to
 equal weights.</p>
 </dd>
 </dl>
@@ -169,7 +146,7 @@ equal weights.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="layerspy.layers.Layer.merge_layers">
-<span class="sig-name descname"><span class="pre">merge_layers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#layerspy.layers.Layer.merge_layers" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">merge_layers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/layerspy/layers.html#Layer.merge_layers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#layerspy.layers.Layer.merge_layers" title="Link to this definition"></a></dt>
 <dd><p>Method to merge a layer into self</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code> (<a class="reference internal" href="#layerspy.layers.Layer" title="layerspy.layers.Layer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Layer</span></code></a>): A layer to merge with self</p>
@@ -181,10 +158,10 @@ equal weights.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="layerspy.layers.Layer.remove_zones_from_layer">
-<span class="sig-name descname"><span class="pre">remove_zones_from_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zone_keys</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#layerspy.layers.Layer.remove_zones_from_layer" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">remove_zones_from_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zone_keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/layerspy/layers.html#Layer.remove_zones_from_layer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#layerspy.layers.Layer.remove_zones_from_layer" title="Link to this definition"></a></dt>
 <dd><p>Method to remove zone data by keys from a layer</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">zone_keys</span></code> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code>) A list of keys to remove from zone data</p>
+<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">zone_keys</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>) A list of keys to remove from zone data</p>
 </dd>
 </dl>
 <p>Returns:</p>
@@ -199,50 +176,19 @@ equal weights.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="layerspy.layers.Layer.update_layer">
-<span class="sig-name descname"><span class="pre">update_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zone_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#layerspy.layers.Layer.update_layer" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">update_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zone_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/layerspy/layers.html#Layer.update_layer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#layerspy.layers.Layer.update_layer" title="Link to this definition"></a></dt>
 <dd><p>Method to add zone data to an existing layer.</p>
 <p>Args:</p>
 <blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">zone_data</span></code> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>) A dictionary of zone data</p>
+<div><p><code class="docutils literal notranslate"><span class="pre">zone_data</span></code> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) A dictionary of zone data</p>
 </div></blockquote>
 <dl class="simple">
-<dt>Returns: On successful return the additional zone data will</dt><dd><p>be added to the layer</p>
+<dt>Returns:</dt><dd><p>On successful return the additional zone data will
+be added to the layer</p>
 </dd>
 </dl>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="layerspy.layers.add_dicts">
-<span class="sig-prename descclassname"><span class="pre">layerspy.layers.</span></span><span class="sig-name descname"><span class="pre">add_dicts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#layerspy.layers.add_dicts" title="Link to this definition"></a></dt>
-<dd><p>Method used to average layers</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="layerspy.layers.create_empty_dict_structure">
-<span class="sig-prename descclassname"><span class="pre">layerspy.layers.</span></span><span class="sig-name descname"><span class="pre">create_empty_dict_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dictionary</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#layerspy.layers.create_empty_dict_structure" title="Link to this definition"></a></dt>
-<dd><p>Method used to average layers</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="layerspy.layers.mult_dict_vals">
-<span class="sig-prename descclassname"><span class="pre">layerspy.layers.</span></span><span class="sig-name descname"><span class="pre">mult_dict_vals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dictionary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiplier</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#layerspy.layers.mult_dict_vals" title="Link to this definition"></a></dt>
-<dd><dl>
-<dt>Method to multiply dictionary values to be used in the __mul__</dt><dd><p>operator for layers</p>
-</dd>
-<dt>Args:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">dictionary</span></code> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>): dictionary to be scaled</p>
-<p><code class="docutils literal notranslate"><span class="pre">multiplier</span></code> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>): Scalar to multiply the dictionary by</p>
-</dd>
-<dt>Returns:</dt><dd><p>On successful return the dictonary will be scaled by multiplier</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="layerspy.layers.sum_dicts">
-<span class="sig-prename descclassname"><span class="pre">layerspy.layers.</span></span><span class="sig-name descname"><span class="pre">sum_dicts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dicts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#layerspy.layers.sum_dicts" title="Link to this definition"></a></dt>
-<dd><p>Method used to average layers</p>
 </dd></dl>
 
 </section>
@@ -252,13 +198,13 @@ equal weights.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="modules.html" class="btn btn-neutral float-left" title="layerspy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="documentation.html" class="btn btn-neutral float-left" title="Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, Lucas S Walls.</p>
+    <p>&#169; Copyright Clemson University, 2023.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

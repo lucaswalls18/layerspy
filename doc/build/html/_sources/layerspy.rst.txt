@@ -6,9 +6,6 @@ layerspy package
     :undoc-members:
     :show-inheritance:
 
-Submodules
-----------
-
 layerspy.layers module
 ----------------------
 
