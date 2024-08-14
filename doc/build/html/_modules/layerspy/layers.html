@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>layerspy.layers &mdash; layerspy 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            layerspy
+          </a>
+              <div class="version">
+                1.0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation.html">Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">layerspy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">layerspy.layers</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for layerspy.layers</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Module providing base functions&quot;&quot;&quot;</span>
+
+<span class="k">def</span> <span class="nf">_get_sum_of_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop</span><span class="p">):</span>
+        <span class="n">prop_sum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">keys</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="p">:</span>
+            <span class="n">prop_sum</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="p">[</span><span class="n">keys</span><span class="p">][</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="n">prop</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">prop_sum</span>
+
+<span class="k">def</span> <span class="nf">_mult_dict_vals</span><span class="p">(</span><span class="n">dictionary</span><span class="p">,</span> <span class="n">multiplier</span><span class="p">):</span>
+    <span class="n">new_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span> <span class="o">*</span> <span class="n">multiplier</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">new_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">new_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">mult_dict_vals</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">multiplier</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_dict</span>
+
+
+<span class="k">def</span> <span class="nf">_create_empty_dict_structure</span><span class="p">(</span><span class="n">dictionary</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dictionary</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">empty_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">empty_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">create_empty_dict_structure</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">empty_dict</span>
+    <span class="c1"># Initialize with 0 for numeric values, or an appropriate default value</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dictionary</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># This is the implicit return for other types</span>
+
+
+<span class="k">def</span> <span class="nf">_add_dicts</span><span class="p">(</span><span class="n">dict1</span><span class="p">,</span> <span class="n">dict2</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dict1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dict2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dict1</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dict2</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">add_dicts</span><span class="p">(</span><span class="n">dict1</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">dict2</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dict1</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="n">dict2</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict1</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+</span> <span class="n">dict2</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict1</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dict2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict2</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="k">def</span> <span class="nf">_sum_dicts</span><span class="p">(</span><span class="n">dicts</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dicts</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">create_empty_dict_structure</span><span class="p">(</span><span class="n">dicts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">create_empty_dict_structure</span><span class="p">(</span><span class="n">dicts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">dictionaries</span> <span class="ow">in</span> <span class="n">dicts</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">add_dicts</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">dictionaries</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<div class="viewcode-block" id="Layer">
+<a class="viewcode-back" href="../../layerspy.html#layerspy.layers.Layer">[docs]</a>
+<span class="k">class</span> <span class="nc">Layer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A class for storing layer data&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zone_data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method for initializing a layer object</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ``zone_data`` (:obj:`dict`): A dictionary of zone data</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            (:obj:`Layer`): A layer which represents the given zone data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zones</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zones</span> <span class="o">=</span> <span class="p">{</span><span class="n">keys</span><span class="p">:</span> <span class="n">zone_data</span><span class="p">[</span><span class="n">keys</span><span class="p">]</span> <span class="k">for</span> <span class="n">keys</span> <span class="ow">in</span> <span class="n">zone_data</span><span class="p">}</span>
+
+<div class="viewcode-block" id="Layer.get_zone_data">
+<a class="viewcode-back" href="../../layerspy.html#layerspy.layers.Layer.get_zone_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_zone_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method for retrieving the zone data of a given layer</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            :obj:`dict`: A dictionary of zone data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">zones</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">zones</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">zones</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method for comparing two Layer instances for equality</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ``layer`` (:obj:`Layer`): Another Layer instance to compare with self</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the zone data of both instances is equal, False otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">zones</span> <span class="o">==</span> <span class="n">layer</span><span class="o">.</span><span class="n">zones</span>
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method defining addition between two layers as a union</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ``layer`` (:obj:`Layer`): Layer to add to self</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            :obj:`Layer`: A new layer containing zone data from self and ``layer``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">union</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">get_zone_data</span><span class="p">(),</span> <span class="o">**</span><span class="n">layer</span><span class="o">.</span><span class="n">get_zone_data</span><span class="p">()}</span>
+        <span class="k">return</span> <span class="n">Layer</span><span class="p">(</span><span class="n">union</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Layer.copy">
+<a class="viewcode-back" href="../../layerspy.html#layerspy.layers.Layer.copy">[docs]</a>
+    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to return a copy of a layer</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            :obj:`Layer`: A copy of self</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">zone_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_zone_data</span><span class="p">()</span>
+        <span class="n">copy</span> <span class="o">=</span> <span class="n">Layer</span><span class="p">(</span><span class="n">zone_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">copy</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weight_dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method defining multiplication of a layer by a scalar</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ``weight_dict`` (:obj:`dict`): A dictionary filled with weights for each zone to scale</span>
+<span class="sd">            the layer</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            :obj:`Layer`: A scaled layer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">self_copy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">zones</span> <span class="o">=</span> <span class="n">self_copy</span><span class="o">.</span><span class="n">get_zone_data</span><span class="p">()</span>
+        <span class="n">new_zones</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">keys</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">zones</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">weight</span> <span class="o">=</span> <span class="n">weight_dict</span><span class="p">[</span><span class="n">keys</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="n">new_zones</span><span class="p">[</span><span class="n">keys</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">values</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_zones</span><span class="p">[</span><span class="n">keys</span><span class="p">]</span> <span class="o">=</span> <span class="n">mult_dict_vals</span><span class="p">(</span><span class="n">zones</span><span class="p">[</span><span class="n">keys</span><span class="p">],</span> <span class="n">weight</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Layer</span><span class="p">(</span><span class="n">new_zones</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Layer.update_layer">
+<a class="viewcode-back" href="../../layerspy.html#layerspy.layers.Layer.update_layer">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zone_data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to add zone data to an existing layer.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            ``zone_data`` (:obj:`dict`) A dictionary of zone data</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            On successful return the additional zone data will</span>
+<span class="sd">            be added to the layer</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">existing_keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">keys</span> <span class="ow">in</span> <span class="n">zone_data</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">keys</span> <span class="ow">in</span> <span class="n">existing_keys</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Duplicate key found: </span><span class="si">{</span><span class="n">keys</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="p">[</span><span class="n">keys</span><span class="p">]</span> <span class="o">=</span> <span class="n">zone_data</span><span class="p">[</span><span class="n">keys</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Layer.remove_zones_from_layer">
+<a class="viewcode-back" href="../../layerspy.html#layerspy.layers.Layer.remove_zones_from_layer">[docs]</a>
+    <span class="k">def</span> <span class="nf">remove_zones_from_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zone_keys</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to remove zone data by keys from a layer</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ``zone_keys`` (:obj:`list`) A list of keys to remove from zone data</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            On successful return any zones with the unwanted keys will be removed.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If any of the keys in zone_keys does not exist in the layer</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">existing_keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">keys</span> <span class="ow">in</span> <span class="n">zone_keys</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">keys</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">existing_keys</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Key </span><span class="si">{keys}</span><span class="s2"> does not match existing keys&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Layer.merge_layers">
+<a class="viewcode-back" href="../../layerspy.html#layerspy.layers.Layer.merge_layers">[docs]</a>
+    <span class="k">def</span> <span class="nf">merge_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to merge a layer into self</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ``Layer`` (:obj:`Layer`): A layer to merge with self</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            On successful return &#39;self&#39; will contain zone data from layer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">keys</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">zones</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="p">[</span><span class="n">keys</span><span class="p">]</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">zones</span><span class="p">[</span><span class="n">keys</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Layer.make_weight_dict">
+<a class="viewcode-back" href="../../layerspy.html#layerspy.layers.Layer.make_weight_dict">[docs]</a>
+    <span class="k">def</span> <span class="nf">make_weight_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to make a weight dictionary for weighted averages</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ``prop`` (:obj:`str`): A string of a property in the zone</span>
+<span class="sd">            data to define the weights of each zone off of</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            :obj:`dict`: of the weight to be assigned to each zone in a layer. Defaults to</span>
+<span class="sd">            equal weights.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">total_zones</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">prop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">weight</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">total_zones</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">weight</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">prop_sum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sum_of_property</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">key</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="n">prop</span><span class="p">]</span> <span class="o">/</span> <span class="n">prop_sum</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">zones</span>
+            <span class="p">}</span>
+        <span class="k">return</span> <span class="n">weights</span></div>
+
+
+<div class="viewcode-block" id="Layer.make_mixed_layer">
+<a class="viewcode-back" href="../../layerspy.html#layerspy.layers.Layer.make_mixed_layer">[docs]</a>
+    <span class="k">def</span> <span class="nf">make_mixed_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weight_dictionary</span><span class="p">,</span> <span class="n">mix_label</span><span class="o">=</span><span class="s2">&quot;mixture&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to mix a layer based on a given weight dictionary</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ``weight_dictionary`` (:obj:`dict`): A dictionary of weights</span>
+
+<span class="sd">            ``mix_label`` (:obj:`str`): A string to label the mixed zone data.</span>
+<span class="sd">            Default is &quot;mixture&quot;</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            :obj:`Layer`: A single zone layer containing the mixture of all zones scaled by</span>
+<span class="sd">            the given weight dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">scaled_layer</span> <span class="o">=</span> <span class="bp">self</span> <span class="o">*</span> <span class="n">weight_dictionary</span>
+        <span class="n">scaled_zone_dict</span> <span class="o">=</span> <span class="n">scaled_layer</span><span class="o">.</span><span class="n">get_zone_data</span><span class="p">()</span>
+        <span class="n">dicts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">scaled_zone_dict</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">result_dict</span> <span class="o">=</span> <span class="n">sum_dicts</span><span class="p">(</span><span class="n">dicts</span><span class="p">)</span>
+        <span class="n">mix_zone</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">mix_zone</span><span class="p">[</span><span class="n">mix_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">result_dict</span>
+
+        <span class="k">return</span> <span class="n">Layer</span><span class="p">(</span><span class="n">mix_zone</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Clemson University, 2023.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
