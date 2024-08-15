@@ -20,7 +20,7 @@ Usage
 -----
 
 For the best guide on getting started with layerspy please see the
-`tutorial <https://github.com/lucaswalls18/layerspy/tree/main/tutorial`_. 
+`tutorial <https://github.com/lucaswalls18/layerspy/tree/main/tutorial>`_. 
 
 Authors
 -------
