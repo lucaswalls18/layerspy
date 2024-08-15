@@ -1,10 +1,5 @@
 """Module providing base functions"""
 
-def _get_sum_of_property(self, prop):
-        prop_sum = 0
-        for keys in self.zones:
-            prop_sum += self.zones[keys]["properties"][prop]
-        return prop_sum
 
 def _mult_dict_vals(dictionary, multiplier):
     new_dict = {}
@@ -81,6 +76,12 @@ class Layer:
         zones = {}
         zones = {key: self.zones[key] for key in self.zones}
         return zones
+
+    def _get_sum_of_property(self, prop):
+        prop_sum = 0
+        for keys in self.zones:
+            prop_sum += self.zones[keys]["properties"][prop]
+        return prop_sum
 
     def __eq__(self, layer):
         """Method for comparing two Layer instances for equality
@@ -199,7 +200,6 @@ class Layer:
         """
         weights = {}
         total_zones = len(self.zones)
-
         if prop is None:
             weight = 1 / total_zones
             weights = {key: weight for key in self.zones}
