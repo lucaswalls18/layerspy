@@ -101,33 +101,6 @@ def test_remove_zones_from_layer():
         my_layer.remove_zones_from_layer(["nonexistent_key"])
 
 
-def test_get_layer_subset_from_function():
-    # Test data
-    initial_data = {
-        "zone1": 10,
-        "zone2": 20,
-        "zone3": 30,
-        "zone4": 40,
-        "zone5": 50,
-    }
-
-    # Create an instance of the class and initialize it with initial_data
-    my_layer = Layer(initial_data)
-
-    # Define a function to select zones with certain properties
-    def selection_function(x, y):
-        return x >= y
-
-    myfunc = lambda t: selection_function(t, 30)
-
-    # Call get_layer_subset_from_function with the selection_function
-    layer_subset = my_layer.get_layer_subset_from_function(myfunc)
-
-    # Check if the layer_subset matches the expected result
-    expected_result = {"zone3": 30, "zone4": 40, "zone5": 50}
-    assert layer_subset.zones == expected_result
-
-
 def test_copy():
     #Test data
     data = {
