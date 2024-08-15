@@ -19,7 +19,8 @@ typing in your favorite terminal::
 Usage
 -----
 
-For a tutorial on how to use the layerspy package please see the following jupyter notebook: 
+For the best guide on getting started with layerspy please see the
+`tutorial <https://github.com/lucaswalls18/layerspy/tree/main/tutorial`_. 
 
 Authors
 -------
@@ -30,7 +31,7 @@ Authors
 Documentation
 -------------
 
-Documentation is found 
+Documentation is found at <https://layerspy.readthedocs.io>  
 
 Contribute
 ----------
