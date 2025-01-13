@@ -230,5 +230,10 @@ class Layer:
         result_dict = _sum_dicts(dicts)
         mix_zone = {}
         mix_zone[mix_label] = result_dict
+        num_data = {}
+        num_data[mix_label] = {}
+        for keys in mix_zone[mix_label]:
+            if keys != "properties":
+                num_data[mix_label][keys] = mix_zone[mix_label][keys]
 
-        return Layer(mix_zone)
+        return Layer(num_data)
