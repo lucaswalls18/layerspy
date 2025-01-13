@@ -171,6 +171,6 @@ def test_make_mixed_layer():
     layer = Layer(data)
     mixture = layer.make_mixed_layer(layer.make_weight_dict(prop='mass'), 'mixture')
 
-    result = {'mixture': {'properties' : {'mass': 10/3 + 40/3}}}
+    result = {'mixture': {'mass': 10/3 + 40/3}}}
 
     assert compare_dicts(mixture.zones, result)
