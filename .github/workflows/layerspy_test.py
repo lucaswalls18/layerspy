@@ -165,12 +165,11 @@ def test_multiplication():
     assert compare_dicts(scaled_layer.zones, result)
 
 def test_make_mixed_layer():
-    data = {'zone1' : {'properties' : {'mass' : 10}},
-            'zone2' : {'properties' : {'mass' : 20}}
-        }
+    data = {'zone1' : {'properties' : {'mass' : 10}, 'mass fractions': {'ca42': .5}},
+            'zone2' : {'properties' : {'mass' : 20}, 'mass fractions': {'ca42': .3}}}
     layer = Layer(data)
     mixture = layer.make_mixed_layer(layer.make_weight_dict(prop='mass'), 'mixture')
 
-    result = {'mixture': {'mass': 10/3 + 40/3}}
+    result = {'mixture': {'mass fractions': {'ca42': .5*(10/30)+.3*(20/30)}}}
 
     assert compare_dicts(mixture.zones, result)
